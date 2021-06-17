@@ -5,8 +5,8 @@ class Unit2(baseUnit):
     def __init__(self, parent, canvas):
         baseUnit.__init__(self, canvas)
         self.parent = parent
-        self.attack = 0
-        self.attackRate = 0
+        self.damage = 0
+        self.cooltime = 0
         self.maxHP = 300
         self.HP = self.maxHP
         self.speed = 2

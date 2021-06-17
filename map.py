@@ -29,7 +29,7 @@ class Map(Canvas):
             200,
             1200,
             150,
-            width=100,
+            width=50,
             capstyle=ROUND,
             fill="#613613",
         )

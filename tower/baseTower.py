@@ -4,17 +4,17 @@ class baseTower:
         self.inBattle = False
         self.x, self.y = pos[0], pos[1]
         self.hpbarBackground = canvas.create_rectangle(
-            self.x - 25, self.y - 30, self.x + 25, self.y - 40, fill="gray"
+            self.x - 15, self.y - 20, self.x + 15, self.y - 30, fill="gray"
         )
         self.hpbar = canvas.create_rectangle(
-            self.x - 24, self.y - 31, self.x + 24, self.y - 39, fill="red"
+            self.x - 14, self.y - 21, self.x + 14, self.y - 29, fill="red"
         )
 
     def update(self):
         if not self.inBattle:
             enemy = self.nearEnemy()
             if enemy != None:
-                self.attackAction(self.canvas.unitList[enemy])
+                self.attack(self.canvas.unitList[enemy])
 
     def const(self):
         difficulty = self.canvas.parent.difficulty.get()
@@ -25,8 +25,8 @@ class baseTower:
         else:
             return 1
 
-    def attacked(self, attack):
-        if self.HP <= attack:
+    def attacked(self, damage):
+        if self.HP <= damage:
             self.HP = 0
             self.canvas.parent.money += self.maxHP * self.const() / 50
             self.canvas.delete(self.id)
@@ -35,16 +35,16 @@ class baseTower:
             self.inBattle = False
             del self.canvas.towerList[self.canvas.towerList.index(self.parent)]
         else:
-            self.HP -= attack
-            self.canvas.parent.money += attack * (self.const() - 1) / 5
+            self.HP -= damage
+            self.canvas.parent.money += damage * (self.const() - 1) / 5
             (x1, y1, x2, y2) = self.canvas.coords(self.hpbar)
-            x2 = x1 + self.HP / self.maxHP * 48
+            x2 = x1 + self.HP / self.maxHP * 28
             self.canvas.coords(self.hpbar, x1, y1, x2, y2)
 
-    def attackAction(self, unit):
+    def attack(self, unit):
         if unit in self.canvas.unitList and self.HP > 0 and self.distance(unit.unit) < self.range:
-            unit.unit.attacked(self.attack)
-            self.canvas.after(int(1000 * self.attackRate), lambda: self.attackAction(unit))
+            unit.unit.attacked(self.damage)
+            self.canvas.after(int(1000 * self.cooltime), lambda: self.attack(unit))
         else:
             self.inBattle = False
 

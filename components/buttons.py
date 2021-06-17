@@ -44,8 +44,8 @@ class UnitButton(Button):
         self.configure(text=str(unitId))
         self.configure(width=2, height=2)
         self.description = [
-            "1) basic unit.\n  HP: 50, DPS: 2.5, range:200, speed: 5",
-            "2) tanker unit.\n  HP: 300, speed: 5",
+            "1) basic unit.\n  HP: 50, DPS: 5, range:200, speed: 3",
+            "2) tanker unit.\n  HP: 300, speed: 2",
             "3) unknown unit.\n  HP: ?, speed: ?",
             "4) unknown unit.\n  HP: ?, speed: ?",
             "5) unknown unit.\n  HP: ?, speed: ?",
@@ -71,8 +71,35 @@ class UnitButton(Button):
 
 
 class UpgradeButton(Button):
-    def __init__(self, parent, param, *args, **kwargs):
+    def __init__(self, parent, paramId, *args, **kwargs):
         Button.__init__(self, parent, *args, **kwargs)
         self.parent = parent
-        self.configure(text=param)
+        self.paramId = paramId
+        self.configure(text=parent.upgradeParams[paramId])
         self.configure(width=4, height=2)
+
+        def command():
+            diffMoney = (
+                self.parent.parent.money.get() - self.parent.upgradeCosts[self.paramId].get()
+            )
+            if diffMoney >= 0:
+                self.parent.parent.money.set(diffMoney)
+                self.parent.parent.upgradeList[self.paramId] += 0.1
+                self.parent.upgradeCosts[self.paramId] *= 1.1
+                self.parent.upgradeLabels[self.paramId].configure(
+                    text=self.parent.upgradeCosts[self.paramId]
+                )
+                if self.paramId == 1:  # present unit HP correction
+                    for unit in self.parent.parent.map.unitList:
+                        unit.unit.maxHP = int(
+                            unit.unit.maxHP
+                            * self.parent.parent.upgradeList[2]
+                            / (self.parent.parent.upgradeList[2] - 0.1)
+                        )
+                        unit.unit.HP = int(
+                            unit.unit.HP
+                            * self.parent.parent.upgradeList[2]
+                            / (self.parent.parent.upgradeList[2] - 0.1)
+                        )
+
+        self.configure(command=command)

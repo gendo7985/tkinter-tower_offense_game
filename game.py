@@ -15,19 +15,25 @@ class Game(Frame):
         self.backButton = BackButton(self)
         self.backButton.grid(row=0, column=2)
 
+        self.unitFrame = UnitFrame(self)
+        self.unitFrame.grid(row=2, column=0)
+
+        self.upgradeList = [1, 1, 1, 0.1]  # damageRate, HPRate, speedRate, mps
+        self.upgradeFrame = UpgradeFrame(self)
+        self.upgradeFrame.grid(row=2, column=1)
+
+        self.money = Money(100)
+        self.moneyLabel = Label(self, text=self.money)
+        self.moneyLabel.grid(row=2, column=2)
+        self.after(1000, self.moneyPerSecond)
+
         self.map = Map(self, width=1200, height=600, background="green")
         self.after(20, self.map.nextFrame)
         self.map.grid(row=1, column=0, columnspan=3)
 
-        self.unitFrame = UnitFrame(self)
-        self.unitFrame.grid(row=2, column=0)
-
-        self.upgradeFrame = UpgradeFrame(self)
-        self.upgradeFrame.grid(row=2, column=1)
-
-        self.money = Money(40)
-        self.moneyLabel = Label(self, text=self.money)
-        self.moneyLabel.grid(row=2, column=2)
+    def moneyPerSecond(self):
+        self.money += self.upgradeList[3] * 10
+        self.after(1000, self.moneyPerSecond)
 
 
 class Money:
@@ -46,6 +52,10 @@ class Money:
 
     def __str__(self):
         return "$" + str(self.value)
+
+    def __imul__(self, other):
+        self.value = int(self.value * other)
+        return self
 
 
 class UnitFrame(Frame):
@@ -78,9 +88,9 @@ class UpgradeFrame(Frame):
         self.configure(highlightbackground="black")
         self.configure(highlightthickness=1)
         self.parent = parent
-        self.upgradeParams = ["attack", "HP", "speed", "money"]
-        self.upgradeCosts = ["$100", "$100", "$100", "$100"]
-        self.upgradeButtons = [UpgradeButton(self, i) for i in self.upgradeParams]
+        self.upgradeParams = ["damage", "HP", "speed", "money"]
+        self.upgradeCosts = [Money(100), Money(100), Money(100), Money(100)]
+        self.upgradeButtons = [UpgradeButton(self, i) for i in range(4)]
         self.upgradeLabels = [Label(self, text=i) for i in self.upgradeCosts]
         for (i, B, L) in zip(range(7), self.upgradeButtons, self.upgradeLabels):
             B.grid(row=0, column=i, padx=20, pady=(20, 0))

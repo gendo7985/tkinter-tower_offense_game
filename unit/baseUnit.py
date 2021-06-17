@@ -16,14 +16,14 @@ class baseUnit:
             (1000, 200),
             (1200, 150),
         ]
-        self.hpbarBackground = canvas.create_rectangle(-25, 420, 25, 410, fill="gray")
-        self.hpbar = canvas.create_rectangle(-24, 419, 24, 411, fill="red")
+        self.hpbarBackground = canvas.create_rectangle(-15, 430, 15, 420, fill="gray")
+        self.hpbar = canvas.create_rectangle(-14, 429, 14, 421, fill="red")
 
     def update(self):
         if not self.inBattle:
             enemy = self.nearEnemy()
             if enemy != None:
-                self.attackAction(self.canvas.towerList[enemy])
+                self.attack(self.canvas.towerList[enemy])
             else:
                 dx, dy = self.nextPosition()
                 self.canvas.move(self.id, dx, dy)
@@ -35,8 +35,8 @@ class baseUnit:
             return (0, 0)
         (x1, y1, x2, y2) = self.canvas.coords(self.id)
         _x, _y = (x1 + x2) / 2, (y1 + y2) / 2  # center
-        x, y, length = _x, _y, self.speed
-        if dist((_x, _y), self.road[1]) < self.speed:  # corner of road
+        x, y, length = _x, _y, self.speed * self.canvas.parent.upgradeList[2]  # speedRate
+        if dist((_x, _y), self.road[1]) < length:  # corner of road
             length -= dist((_x, _y), self.road[1])
             x, y = self.road[1]
             self.road.pop(0)
@@ -49,8 +49,8 @@ class baseUnit:
         y = yvec / xvec * (x - self.road[0][0]) + self.road[0][1]  # correction
         return (x - _x, y - _y)
 
-    def attacked(self, attack):
-        if self.HP <= attack:
+    def attacked(self, damage):
+        if self.HP <= damage:
             self.HP = 0
             self.canvas.delete(self.id)
             self.canvas.delete(self.hpbar)
@@ -58,15 +58,15 @@ class baseUnit:
             self.inBattle = False
             del self.canvas.unitList[self.canvas.unitList.index(self.parent)]
         else:
-            self.HP -= attack
+            self.HP -= damage
             (x1, y1, x2, y2) = self.canvas.coords(self.hpbar)
-            x2 = x1 + self.HP / self.maxHP * 48
+            x2 = x1 + self.HP / self.maxHP * 28
             self.canvas.coords(self.hpbar, x1, y1, x2, y2)
 
-    def attackAction(self, tower):
+    def attack(self, tower):
         if tower in self.canvas.towerList and self.HP > 0:
-            tower.tower.attacked(self.attack)
-            self.canvas.after(int(1000 * self.attackRate), lambda: self.attackAction(tower))
+            tower.tower.attacked(int(self.damage * self.canvas.parent.upgradeList[0]))
+            self.canvas.after(int(1000 * self.cooltime), lambda: self.attack(tower))
         else:
             self.inBattle = False
 
