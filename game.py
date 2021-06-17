@@ -47,14 +47,18 @@ class Money:
         self.value = newValue
 
     def __iadd__(self, other):
-        self.value += int(other)  # other = int
+        self.value += other  # other = float
         return self
 
     def __str__(self):
-        return "$" + str(self.value)
+        return "$" + str(int(self.value))
 
     def __imul__(self, other):
-        self.value = int(self.value * other)
+        self.value = int(self.value * other)  # other = float
+        return self
+
+    def __isub__(self, other):
+        self.value -= other
         return self
 
 

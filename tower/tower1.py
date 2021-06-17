@@ -10,8 +10,7 @@ class Tower1(baseTower):
         self.range = 300
         self.maxHP = 300
         self.HP = self.maxHP
+        self.color = "yellow"
         self.id = canvas.create_rectangle(
-            self.x - 15, self.y - 15, self.x + 15, self.y + 15, fill="yellow"
+            self.x - 15, self.y - 15, self.x + 15, self.y + 15, fill=self.color
         )
-
-
