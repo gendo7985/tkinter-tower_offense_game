@@ -38,7 +38,9 @@ class Map(Canvas):
         self.towerList.append(Tower(self, 1, (820, 520)))
         self.towerList.append(Tower(self, 1, (730, 240)))
         self.towerList.append(Tower(self, 1, (370, 80)))
-        
+
+        self.bind("<Button-1>", self.getXY)  # for tower initialization
+
     def addUnit(self, unitId):
         self.unitList.append(Unit(self, unitId))
 
@@ -49,3 +51,6 @@ class Map(Canvas):
             tower.update()
         self.parent.moneyLabel.configure(text=self.parent.money)
         self.after(20, self.nextFrame)
+
+    def getXY(self, e):  # for tower initialization
+        print(e)

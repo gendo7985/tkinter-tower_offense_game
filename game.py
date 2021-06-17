@@ -22,7 +22,7 @@ class Game(Frame):
         self.upgradeFrame = UpgradeFrame(self)
         self.upgradeFrame.grid(row=2, column=1)
 
-        self.money = Money(100)
+        self.money = Money(50)
         self.moneyLabel = Label(self, text=self.money)
         self.moneyLabel.grid(row=2, column=2)
         self.after(1000, self.moneyPerSecond)
@@ -97,5 +97,7 @@ class UpgradeFrame(Frame):
         self.upgradeButtons = [UpgradeButton(self, i) for i in range(4)]
         self.upgradeLabels = [Label(self, text=i) for i in self.upgradeCosts]
         for (i, B, L) in zip(range(7), self.upgradeButtons, self.upgradeLabels):
+            B.bind("<Enter>", B.mouseHoverIn)
+            B.bind("<Leave>", B.mouseHoverOut)
             B.grid(row=0, column=i, padx=20, pady=(20, 0))
             L.grid(row=1, column=i, padx=20, pady=5)
