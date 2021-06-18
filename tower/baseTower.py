@@ -18,7 +18,7 @@ class baseTower:
                 self.attack(self.canvas.unitList[enemy])
 
     def const(self):  # difficulty constant
-        difficulty = self.canvas.parent.difficulty.get()
+        difficulty = self.canvas.parent.difficulty.get()[:2]
         if difficulty == "쉬움":
             return 3
         elif difficulty == "보통":
@@ -74,7 +74,7 @@ class baseTower:
                 return dist[0]
 
     def respawning(self):
-        if self.respawn:
+        if self.respawn and self.id in self.canvas.find_all():
             if self.HP < self.maxHP:  # respawning
                 self.HP += self.maxHP * 0.05
                 (x1, y1, x2, y2) = self.canvas.coords(self.hpbar)

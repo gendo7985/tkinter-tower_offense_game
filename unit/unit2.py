@@ -11,7 +11,7 @@ class Unit2(baseUnit):
         self.HP = self.maxHP
         self.speed = 2
         self.color = "blue"
-        self.id = self.canvas.create_oval(-25, 475, 25, 425, fill=self.color)
+        self.id = self.canvas.create_oval(-15, 465, 15, 435, fill=self.color)
 
     def update(self):
         dx, dy = self.nextPosition()

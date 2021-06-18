@@ -24,7 +24,7 @@ class Main(Frame):
 
         self.startButton = MainButton(self, "시작하기", self.startCommand)
         self.startButton.grid(row=1, column=0, padx=10, pady=10)
-        
+
         self.endButton = MainButton(self, "종료하기", self.endCommand)
         self.endButton.grid(row=2, column=0, padx=10, pady=10)
 

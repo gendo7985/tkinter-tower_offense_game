@@ -1,9 +1,12 @@
 from .tower1 import Tower1
+from .nexus import Nexus
 
 
 class Tower:
     def __init__(self, parent, towerId, pos):
-        if towerId == 1:
+        if towerId == 0:
+            self.tower = Nexus(self, parent, pos)
+        elif towerId == 1:
             self.tower = Tower1(self, parent, pos)
 
     def update(self):

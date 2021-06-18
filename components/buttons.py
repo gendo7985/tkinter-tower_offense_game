@@ -106,10 +106,10 @@ class UpgradeButton(Button):
 
     def mouseHoverIn(self, e):
         self.description = [
-            "Damage rate: x" + str(self.parent.parent.upgradeList[0]),
-            "HP rate: x" + str(self.parent.parent.upgradeList[1]),
-            "Speed rate: x" + str(self.parent.parent.upgradeList[2]),
-            "Money/s: $" + str(int(self.parent.parent.upgradeList[3] * 10)),
+            "Damage rate: x {0:0.1f}".format(self.parent.parent.upgradeList[0]),
+            "HP rate: x {0:0.1f}".format(self.parent.parent.upgradeList[1]),
+            "Speed rate: x {0:0.1f}".format(self.parent.parent.upgradeList[2]),
+            "Money/s: ${0:d}".format(int(self.parent.parent.upgradeList[3] * 10)),
         ]
         self.tip = self.parent.parent.map.create_text(
             1190, 570, text=self.description[self.paramId], anchor=E

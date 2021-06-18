@@ -64,7 +64,7 @@ class baseUnit:
             self.canvas.coords(self.hpbar, x1, y1, x2, y2)
 
     def attack(self, tower):
-        if tower in self.canvas.towerList and self.HP > 0:
+        if tower in self.canvas.towerList and self.HP > 0 and self.inBattle:
             tower.tower.attacked(int(self.damage * self.canvas.parent.upgradeList[0]))
             self.canvas.after(int(1000 * self.cooltime), lambda: self.attack(tower))
         else:

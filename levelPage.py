@@ -28,5 +28,5 @@ class LevelPage(Frame):
     def command(self, difficulty):
         self.pack_forget()
         self.parent.Game = Game(self.parent)
-        self.parent.Game.difficulty.set(difficulty)
+        self.parent.Game.difficulty.set(difficulty + ": " + str(self.parent.Game.map.stage) + "단계")
         self.parent.Game.pack()
