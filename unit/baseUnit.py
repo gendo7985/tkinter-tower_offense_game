@@ -3,19 +3,13 @@ def dist(p1, p2):
 
 
 class baseUnit:
-    def __init__(self, canvas):
+    def __init__(self, canvas, road):
         self.canvas = canvas
         self.inBattle = False
-        self.road = [
-            (0, 450),
-            (200, 400),
-            (600, 500),
-            (900, 375),
-            (300, 225),
-            (600, 100),
-            (1000, 200),
-            (1200, 150),
-        ]
+        self.road = []
+        for i in range(0, len(road), 2):
+            self.road.append((road[i], road[i + 1]))
+        self.id = self.canvas.create_oval(-15, 465, 15, 435)
         self.hpbarBackground = canvas.create_rectangle(-15, 430, 15, 420, fill="gray")
         self.hpbar = canvas.create_rectangle(-14, 429, 14, 421, fill="red")
 
@@ -31,7 +25,7 @@ class baseUnit:
                 self.canvas.move(self.hpbarBackground, dx, dy)
 
     def nextPosition(self):
-        if len(self.road) == 1:
+        if len(self.road) <= 2:
             return (0, 0)
         (x1, y1, x2, y2) = self.canvas.coords(self.id)
         _x, _y = (x1 + x2) / 2, (y1 + y2) / 2  # center

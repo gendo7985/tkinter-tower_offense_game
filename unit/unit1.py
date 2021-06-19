@@ -2,8 +2,8 @@ from .baseUnit import baseUnit
 
 
 class Unit1(baseUnit):
-    def __init__(self, parent, canvas):
-        baseUnit.__init__(self, canvas)
+    def __init__(self, parent, canvas, road):
+        baseUnit.__init__(self, canvas, road)
         self.parent = parent
         self.damage = 50
         self.cooltime = 1
@@ -12,4 +12,4 @@ class Unit1(baseUnit):
         self.HP = self.maxHP
         self.speed = 5
         self.color = "red"
-        self.id = self.canvas.create_oval(-15, 465, 15, 435, fill=self.color)
+        self.canvas.itemconfig(self.id, fill=self.color)
