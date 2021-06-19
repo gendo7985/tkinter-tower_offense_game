@@ -7,13 +7,13 @@ class Unit2(baseUnit):
         self.parent = parent
         self.damage = 0
         self.cooltime = 0
-        self.maxHP = 300
+        self.maxHP = int(300 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 2
         self.color = "blue"
         self.canvas.itemconfig(self.id, fill=self.color)
 
-    def update(self):
+    def update(self):  # tanker cannot attack tower
         dx, dy = self.nextPosition()
         self.canvas.move(self.id, dx, dy)
         self.canvas.move(self.hpbar, dx, dy)
