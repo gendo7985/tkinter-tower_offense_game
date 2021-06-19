@@ -40,7 +40,20 @@ class Map(Canvas):
 
     def nextStage(self):
         self.stage += 1
-        self.parent.difficulty.set(self.parent.difficulty.get()[:-3] + str(self.stage) + "단계")
+        if self.stage > len(self.roadInfo):  # stage clear
+            if self.parent.difficulty.get()[:2] == "쉬움":
+                self.parent.parent.LevelPage.easyButton.configure(text="쉬움\nclear")
+            elif self.parent.difficulty.get()[:2] == "보통":
+                self.parent.parent.LevelPage.mediumButton.configure(text="보통\nclear")
+            else:
+                self.parent.parent.LevelPage.hardButton.configure(text="어려움\nclear")
+            self.parent.parent.Game.pack_forget()
+            self.parent.parent.LevelPage.pack()
+            return  # break
+        elif self.stage == len(self.roadInfo):  # last stage
+            self.parent.difficulty.set(self.parent.difficulty.get()[:-3] + "FINAL")
+        else:
+            self.parent.difficulty.set(self.parent.difficulty.get()[:-3] + str(self.stage) + "단계")
         self.delete("all")
         # road
         self.create_line(*self.roadInfo[self.stage - 1], width=50, capstyle=ROUND, fill="#613613")
