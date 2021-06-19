@@ -6,11 +6,11 @@ class Unit6(baseUnit):  # healer unit
         baseUnit.__init__(self, canvas, road)
         self.parent = parent
         self.damage = -5
-        self.cooltime = 0.2
+        self.cooltime = 0.5
         self.range = 100
         self.maxHP = int(100 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
-        self.speed = 3
+        self.speed = 2
         self.color = "magenta"
         self.canvas.itemconfig(self.id, fill=self.color)
 

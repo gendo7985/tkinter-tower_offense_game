@@ -19,6 +19,8 @@ class Unit3(baseUnit):  # Bomb unit
         self.canvas.move(self.hpbar, dx, dy)
         self.canvas.move(self.hpbarBackground, dx, dy)
         for tower in self.canvas.towerList:
-            if self.distance(tower) < 15:
-                tower.attacked(self.damage)
-                self.attacked(self.maxHP)  # suicide
+            if self.distance(tower.tower) < 15:
+                tower.tower.attacked(self.damage)
+                self.HP = 0  # suicide
+        if self.HP == 0:
+            self.attacked(1)

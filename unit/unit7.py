@@ -6,8 +6,8 @@ class Unit7(baseUnit):
     def __init__(self, parent, canvas, road):
         baseUnit.__init__(self, canvas, road)
         self.parent = parent
-        self.damage = 200
-        self.cooltime = 3
+        self.damage = 50
+        self.cooltime = 0.5
         self.range = 200
         self.maxHP = int(500 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP

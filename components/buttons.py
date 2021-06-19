@@ -46,11 +46,11 @@ class UnitButton(Button):
         self.description = [
             "1) basic unit.\n  HP: 50, DPS: 5, range:200, speed: 3",
             "2) tanker unit.\n  HP: 300, speed: 2",
-            "3) unknown unit.\n  HP: ?, speed: ?",
-            "4) unknown unit.\n  HP: ?, speed: ?",
-            "5) unknown unit.\n  HP: ?, speed: ?",
-            "6) unknown unit.\n  HP: ?, speed: ?",
-            "7) unknown unit.\n  HP: ?, speed: ?",
+            "3) bomb unit.\n  HP: 80, damage: 300(nexus), speed: 5",
+            "4) power unit.\n  HP: 250, DPS: 20, range: 300, speed: 3",
+            "5) anti-tower unit.\n  HP: 200, DPS: 50, range: 150, speed: 1",
+            "6) healer unit.\n  HP: 100, HPS: 10, range: 100, speed: 2",
+            "7) final unit.\n  HP: 500, DPS: 100(10%-kill), range: 200, speed: 1",
         ]
 
         def command():
@@ -112,7 +112,7 @@ class UpgradeButton(Button):
             "Money/s: ${0:d}".format(int(self.parent.parent.upgradeList[3] * 10)),
         ]
         self.tip = self.parent.parent.map.create_text(
-            1190, 570, text=self.description[self.paramId], anchor=E
+            1190, 580, text=self.description[self.paramId], anchor=E
         )
 
     def mouseHoverOut(self, e):
