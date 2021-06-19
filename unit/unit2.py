@@ -14,7 +14,8 @@ class Unit2(baseUnit):
         self.canvas.itemconfig(self.id, fill=self.color)
 
     def update(self):  # tanker cannot attack tower
-        dx, dy = self.nextPosition()
-        self.canvas.move(self.id, dx, dy)
-        self.canvas.move(self.hpbar, dx, dy)
-        self.canvas.move(self.hpbarBackground, dx, dy)
+        if self.id in self.canvas.find_all():
+            dx, dy = self.nextPosition()
+            self.canvas.move(self.id, dx, dy)
+            self.canvas.move(self.hpbar, dx, dy)
+            self.canvas.move(self.hpbarBackground, dx, dy)

@@ -14,13 +14,19 @@ class Unit3(baseUnit):  # Bomb unit
         self.canvas.itemconfig(self.id, fill=self.color)
 
     def update(self):  # bomb unit attack only nexus tower
+        if self.id not in self.canvas.find_all():
+            return
         dx, dy = self.nextPosition()
         self.canvas.move(self.id, dx, dy)
         self.canvas.move(self.hpbar, dx, dy)
         self.canvas.move(self.hpbarBackground, dx, dy)
         for tower in self.canvas.towerList:
-            if self.distance(tower.tower) < 15:
+            if self.id in self.canvas.find_all() and self.distance(tower.tower) < 15:
                 tower.tower.attacked(self.damage)
-                self.HP = 0  # suicide
+                self.HP = 0
+                if self.parent in self.canvas.unitList:
+                    self.canvas.unitList.remove(self.parent)
         if self.HP == 0:
-            self.attacked(1)
+            self.canvas.delete(self.id)
+            self.canvas.delete(self.hpbar)
+            self.canvas.delete(self.hpbarBackground)

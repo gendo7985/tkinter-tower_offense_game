@@ -8,7 +8,7 @@ class Nexus(baseTower):
         self.damage = 0
         self.cooltime = 1
         self.range = 0
-        self.maxHP = 3000
+        self.maxHP = 3000 * self.canvas.stage
         self.HP = self.maxHP
         self.color = "black"
         self.id = canvas.create_rectangle(

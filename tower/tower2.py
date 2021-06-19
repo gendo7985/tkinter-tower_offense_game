@@ -16,8 +16,9 @@ class Tower2(baseTower):
         )
 
     def nearEnemy(self):
-        for unit in self.canvas.unitList:
-            if unit.unit not in self.enemies:
-                if self.distance(unit.unit) < self.range:
-                    self.inBattle = True
-                    self.enemies.append(unit.unit)
+        if self.parent in self.canvas.towerList:
+            for unit in self.canvas.unitList:
+                if unit.unit not in self.enemies:
+                    if self.distance(unit.unit) < self.range:
+                        self.inBattle = True
+                        self.enemies.append(unit.unit)

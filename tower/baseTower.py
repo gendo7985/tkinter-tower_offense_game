@@ -52,7 +52,7 @@ class baseTower:
                     unit.attacked(self.damage)
                 else:
                     self.enemies.remove(unit)
-                    self.inBattle = self.enemies == []
+                    self.inBattle = self.enemies
         self.canvas.after(int(1000 * self.cooltime), self.attack)
 
     def distance(self, other):
@@ -61,7 +61,7 @@ class baseTower:
         return 0.5 * ((x1 + x2 - z1 - z2) ** 2 + (y1 + y2 - w1 - w2) ** 2) ** 0.5
 
     def nearEnemy(self):
-        if self.enemies == [] and self.canvas.unitList and self.parent in self.canvas.towerList:
+        if (not self.enemies) and self.canvas.unitList and self.parent in self.canvas.towerList:
             nearest, dist = None, self.range
             for unit in self.canvas.unitList:
                 newdist = self.distance(unit.unit)
