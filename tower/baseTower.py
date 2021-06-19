@@ -31,11 +31,11 @@ class baseTower:
             self.canvas.itemconfig(self.hpbar, fill="#333333")
             self.inBattle = False
             self.canvas.towerList.remove(self.parent)
-            self.respawning()
+            self.respawning()  # ready for respawn
             self.kill = self.canvas.create_text(
                 self.x, self.y, text="$" + str(int(self.maxHP / self.const()))
             )
-            self.canvas.tag_bind(self.kill, "<Button-1>", self.mouseClick)
+            self.canvas.tag_bind(self.kill, "<Button-1>", self.mouseClick)  # kill permanently
 
         else:  # tower alived
             self.HP -= damage

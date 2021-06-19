@@ -4,7 +4,7 @@ from levelPage import LevelPage
 from components.buttons import MainButton
 
 
-class MainApplication(Frame):
+class MainApplication(Frame):  # overall game Frame
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
@@ -14,25 +14,25 @@ class MainApplication(Frame):
         self.Main.pack()
 
 
-class Main(Frame):
+class Main(Frame):  # Main frame(containing title, start, end button)
     def __init__(self, parent, *args, **kwargs):
         Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
-
+        # title of game
         self.title = Label(self, text="지구정복", font=Font(size=50))
         self.title.grid(row=0, column=0, padx=10, pady=150)
-
+        # start button
         self.startButton = MainButton(self, "시작하기", self.startCommand)
         self.startButton.grid(row=1, column=0, padx=10, pady=10)
-
+        # exit button
         self.endButton = MainButton(self, "종료하기", self.endCommand)
         self.endButton.grid(row=2, column=0, padx=10, pady=10)
 
-    def startCommand(self):
+    def startCommand(self):  # goes to levelPage
         self.pack_forget()
         self.parent.LevelPage.pack()
 
-    def endCommand(self):
+    def endCommand(self):  # exit
         self.parent.parent.destroy()
 
 
