@@ -10,12 +10,8 @@ class baseTower:
         self.hpbar = canvas.create_rectangle(
             self.x - 14, self.y - 21, self.x + 14, self.y - 29, fill="red"
         )
-
-    def update(self):
-        if not self.inBattle:
-            enemy = self.nearEnemy()
-            if enemy != None:
-                self.attack(self.canvas.unitList[enemy])
+        self.enemies = []
+        self.attack()
 
     def const(self):  # difficulty constant
         difficulty = self.canvas.parent.difficulty.get()[:2]
@@ -48,12 +44,16 @@ class baseTower:
             x2 = x1 + self.HP / self.maxHP * 28
             self.canvas.coords(self.hpbar, x1, y1, x2, y2)
 
-    def attack(self, unit):  # tower hit unit
-        if unit in self.canvas.unitList and self.inBattle and self.distance(unit.unit) < self.range:
-            unit.unit.attacked(self.damage)
-            self.canvas.after(int(1000 * self.cooltime), lambda: self.attack(unit))
-        else:
-            self.inBattle = False
+    def attack(self):  # tower hit unit
+        self.nearEnemy()
+        if self.inBattle:
+            for unit in self.enemies:
+                if unit.parent in self.canvas.unitList and self.distance(unit) < self.range:
+                    unit.attacked(self.damage)
+                else:
+                    self.inBattle = False
+                    self.enemies.remove(unit)
+        self.canvas.after(int(1000 * self.cooltime), self.attack)
 
     def distance(self, other):
         x1, y1, x2, y2 = self.canvas.coords(self.id)
@@ -61,17 +61,16 @@ class baseTower:
         return 0.5 * ((x1 + x2 - z1 - z2) ** 2 + (y1 + y2 - w1 - w2) ** 2) ** 0.5
 
     def nearEnemy(self):
-        if self.canvas.unitList:
-            dist = [-1, self.range]
-            for i in range(len(self.canvas.unitList)):
-                unit = self.canvas.unitList[i].unit
-                newdist = self.distance(unit)
-                if newdist < dist[1]:
-                    dist[1] = newdist
-                    dist[0] = i
-            if dist[0] != -1:
+        if self.enemies == [] and self.canvas.unitList and self.parent in self.canvas.towerList:
+            nearest, dist = None, self.range
+            for unit in self.canvas.unitList:
+                newdist = self.distance(unit.unit)
+                if newdist < dist:
+                    dist = newdist
+                    nearest = unit.unit
+            if nearest != None:
                 self.inBattle = True
-                return dist[0]
+                self.enemies.append(nearest)
 
     def respawning(self):
         if self.respawn and self.id in self.canvas.find_all():

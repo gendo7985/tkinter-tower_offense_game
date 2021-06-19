@@ -15,7 +15,7 @@ class Nexus(baseTower):
             self.x - 15, self.y - 15, self.x + 15, self.y + 15, fill=self.color
         )
 
-    def update(self):
+    def attack(self):
         pass
 
     def attacked(self, damage):  # tower get damage

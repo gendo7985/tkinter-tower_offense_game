@@ -11,7 +11,7 @@ class Unit2(baseUnit):
         self.HP = self.maxHP
         self.speed = 2
         self.color = "blue"
-        self.canvas.itemconfig(self.id, color=self.color)
+        self.canvas.itemconfig(self.id, fill=self.color)
 
     def update(self):
         dx, dy = self.nextPosition()
