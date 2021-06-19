@@ -51,8 +51,8 @@ class baseTower:
                 if unit.parent in self.canvas.unitList and self.distance(unit) < self.range:
                     unit.attacked(self.damage)
                 else:
-                    self.inBattle = False
                     self.enemies.remove(unit)
+                    self.inBattle = self.enemies == []
         self.canvas.after(int(1000 * self.cooltime), self.attack)
 
     def distance(self, other):

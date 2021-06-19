@@ -4,7 +4,7 @@ from .baseTower import baseTower
 class Tower2(baseTower):
     def __init__(self, parent, canvas, pos):
         self.parent = parent
-        self.damage = 5
+        self.damage = 10
         self.cooltime = 0.5
         self.range = 500
         self.maxHP = 300
@@ -17,6 +17,7 @@ class Tower2(baseTower):
 
     def nearEnemy(self):
         for unit in self.canvas.unitList:
-            if unit not in self.enemies:
+            if unit.unit not in self.enemies:
                 if self.distance(unit.unit) < self.range:
+                    self.inBattle = True
                     self.enemies.append(unit.unit)
