@@ -25,7 +25,7 @@ class baseUnit:
                 self.canvas.move(self.hpbarBackground, dx, dy)
 
     def nextPosition(self):
-        if len(self.road) <= 2:
+        if len(self.road) == 1:
             return (0, 0)
         (x1, y1, x2, y2) = self.canvas.coords(self.id)
         _x, _y = (x1 + x2) / 2, (y1 + y2) / 2  # center
@@ -39,8 +39,12 @@ class baseUnit:
         xvec = self.road[1][0] - self.road[0][0]
         yvec = self.road[1][1] - self.road[0][1]
         mag = (xvec ** 2 + yvec ** 2) ** 0.5
-        x += xvec * length / mag  # x_1 = x_0 + dx
-        y = yvec / xvec * (x - self.road[0][0]) + self.road[0][1]  # correction
+        if xvec != 0:  # not vertical
+            x += xvec * length / mag  # x_1 = x_0 + dx
+            y = yvec / xvec * (x - self.road[0][0]) + self.road[0][1]  # correction
+        else:  # vertical
+            y += yvec * length / mag
+            x = xvec / yvec * (y - self.road[0][1]) + self.road[0][0]
         return (x - _x, y - _y)
 
     def attacked(self, damage):
