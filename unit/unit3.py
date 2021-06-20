@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseUnit import baseUnit
 
 
@@ -10,8 +11,8 @@ class Unit3(baseUnit):  # Bomb unit
         self.maxHP = int(80 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 5
-        self.color = "pink"
-        self.canvas.itemconfig(self.id, fill=self.color)
+        self.image = PhotoImage(file="./src/unit3.png")
+        self.canvas.itemconfig(self.id, image=self.image)
 
     def update(self):  # bomb unit attack only nexus tower
         if self.id not in self.canvas.find_all():

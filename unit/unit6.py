@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseUnit import baseUnit
 
 
@@ -11,8 +12,8 @@ class Unit6(baseUnit):  # healer unit
         self.maxHP = int(100 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 2
-        self.color = "magenta"
-        self.canvas.itemconfig(self.id, fill=self.color)
+        self.image = PhotoImage(file="./src/unit6.png")
+        self.canvas.itemconfig(self.id, image=self.image)
 
     def update(self):
         if not self.inBattle:  # if unit in battle:

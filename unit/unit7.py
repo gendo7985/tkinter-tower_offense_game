@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseUnit import baseUnit
 from random import random
 
@@ -12,8 +13,8 @@ class Unit7(baseUnit):
         self.maxHP = int(500 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 1
-        self.color = "black"
-        self.canvas.itemconfig(self.id, fill=self.color)
+        self.image = PhotoImage(file="./src/unit7.png")
+        self.canvas.itemconfig(self.id, image=self.image)
 
     def attack(self, tower):  # unit attack tower
         if tower in self.canvas.towerList and self.HP > 0 and self.inBattle:  # prevent error

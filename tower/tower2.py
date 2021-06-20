@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseTower import baseTower
 
 
@@ -9,11 +10,9 @@ class Tower2(baseTower):
         self.range = 500
         self.maxHP = 300
         self.HP = self.maxHP
-        self.color = "purple"
         baseTower.__init__(self, canvas, pos)
-        self.id = canvas.create_rectangle(
-            self.x - 15, self.y - 15, self.x + 15, self.y + 15, fill=self.color
-        )
+        self.image = PhotoImage(file="./src/tower2.png")
+        self.id = canvas.create_image(self.x, self.y, image=self.image)
 
     def nearEnemy(self):
         if self.parent in self.canvas.towerList:

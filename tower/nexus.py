@@ -1,19 +1,18 @@
+from tkinter import PhotoImage
 from .baseTower import baseTower
 
 
 class Nexus(baseTower):
     def __init__(self, parent, canvas, pos):
-        baseTower.__init__(self, canvas, pos)
         self.parent = parent
         self.damage = 0
         self.cooltime = 1
         self.range = 0
-        self.maxHP = 3000 * self.canvas.stage
+        self.maxHP = 3000 * canvas.stage
         self.HP = self.maxHP
-        self.color = "black"
-        self.id = canvas.create_rectangle(
-            self.x - 15, self.y - 15, self.x + 15, self.y + 15, fill=self.color
-        )
+        baseTower.__init__(self, canvas, pos)
+        self.image = PhotoImage(file="./src/nexus.png")
+        self.id = canvas.create_image(self.x, self.y, image=self.image)
 
     def attack(self):
         pass

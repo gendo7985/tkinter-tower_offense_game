@@ -1,5 +1,6 @@
 from .tower1 import Tower1
 from .tower2 import Tower2
+from .tower3 import Tower3
 from .nexus import Nexus
 
 
@@ -11,6 +12,8 @@ class Tower:
             self.tower = Tower1(self, parent, pos)
         elif towerId == 2:
             self.tower = Tower2(self, parent, pos)
+        elif towerId == 3:
+            self.tower = Tower3(self, parent, pos)
 
     def update(self):
         self.tower.update()

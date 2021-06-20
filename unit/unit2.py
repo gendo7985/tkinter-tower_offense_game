@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseUnit import baseUnit
 
 
@@ -10,8 +11,8 @@ class Unit2(baseUnit):
         self.maxHP = int(300 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 2
-        self.color = "blue"
-        self.canvas.itemconfig(self.id, fill=self.color)
+        self.image = PhotoImage(file="./src/unit2.png")
+        self.canvas.itemconfig(self.id, image=self.image)
 
     def update(self):  # tanker cannot attack tower
         if self.id in self.canvas.find_all():

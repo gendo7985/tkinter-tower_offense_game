@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 from .baseUnit import baseUnit
 
 
@@ -11,5 +12,5 @@ class Unit5(baseUnit):
         self.maxHP = int(200 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 1
-        self.color = "green"
-        self.canvas.itemconfig(self.id, fill=self.color)
+        self.image = PhotoImage(file="./src/unit5.png")
+        self.canvas.itemconfig(self.id, image=self.image)

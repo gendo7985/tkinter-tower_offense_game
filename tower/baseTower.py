@@ -27,7 +27,6 @@ class baseTower:
         if self.HP <= damage:  # tower broken
             self.HP = 0
             self.canvas.parent.money += self.maxHP * self.const() / 50 * moneyFactor
-            self.canvas.itemconfig(self.id, fill="gray")
             self.canvas.itemconfig(self.hpbar, fill="#333333")
             self.inBattle = False
             self.canvas.towerList.remove(self.parent)
@@ -56,9 +55,9 @@ class baseTower:
         self.canvas.after(int(1000 * self.cooltime), self.attack)
 
     def distance(self, other):
-        x1, y1, x2, y2 = self.canvas.coords(self.id)
-        z1, w1, z2, w2 = other.canvas.coords(other.id)
-        return 0.5 * ((x1 + x2 - z1 - z2) ** 2 + (y1 + y2 - w1 - w2) ** 2) ** 0.5
+        x1, y1 = self.canvas.coords(self.id)
+        x2, y2 = other.canvas.coords(other.id)
+        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
     def nearEnemy(self):
         if (not self.enemies) and self.canvas.unitList and self.parent in self.canvas.towerList:
@@ -82,7 +81,6 @@ class baseTower:
                 self.canvas.after(500, self.respawning)
             else:  # respawned
                 self.HP = self.maxHP
-                self.canvas.itemconfig(self.id, fill=self.color)
                 self.canvas.itemconfig(self.hpbar, fill="red")
                 self.canvas.towerList.append(self.parent)
                 self.canvas.tag_unbind(self.kill, "<Button-1>")

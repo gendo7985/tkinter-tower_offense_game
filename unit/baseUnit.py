@@ -12,7 +12,7 @@ class baseUnit:  # inherit to unit1 ~ unit7
 
         # self image, hpbar
         self.x, self.y = self.road[0][0], self.road[0][1]  # initial position
-        self.id = self.canvas.create_oval(self.x - 15, self.y - 15, self.x + 15, self.y + 15)
+        self.id = self.canvas.create_image(self.x, self.y)
         self.hpbarBackground = canvas.create_rectangle(
             self.x - 15, self.y - 20, self.x + 15, self.y - 30, fill="gray"
         )
@@ -35,8 +35,7 @@ class baseUnit:  # inherit to unit1 ~ unit7
     def nextPosition(self):  # next position of unit
         if len(self.road) == 1:  # at the end of road:
             return (0, 0)  # don't move
-        (x1, y1, x2, y2) = self.canvas.coords(self.id)
-        _x, _y = (x1 + x2) / 2, (y1 + y2) / 2  # center of unit
+        _x, _y = self.canvas.coords(self.id)  # center of unit
         x, y, length = _x, _y, self.speed * self.canvas.parent.upgradeList[2]  # speedRate
         if dist((_x, _y), self.road[1]) < length:  # corner of road
             length -= dist((_x, _y), self.road[1])  # go through to corner
@@ -77,11 +76,11 @@ class baseUnit:  # inherit to unit1 ~ unit7
             self.inBattle = False  # don't fight anymore
 
     def distance(self, other):  # distance between center of unit and center of other
-        x1, y1, x2, y2 = self.canvas.coords(self.id)
-        z1, w1, z2, w2 = other.canvas.coords(other.id)
-        return 0.5 * ((x1 + x2 - z1 - z2) ** 2 + (y1 + y2 - w1 - w2) ** 2) ** 0.5
+        x1, y1 = self.canvas.coords(self.id)
+        x2, y2 = other.canvas.coords(other.id)
+        return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
 
-    def nearEnemy(self): # find nearest Enemy
+    def nearEnemy(self):  # find nearest Enemy
         if self.canvas.towerList:
             dist = [-1, self.range]
             for i in range(len(self.canvas.towerList)):
