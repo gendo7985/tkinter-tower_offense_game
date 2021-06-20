@@ -8,7 +8,7 @@ class Unit4(baseUnit):
         self.parent = parent
         self.damage = 10
         self.cooltime = 0.5
-        self.range = 300
+        self.range = 200
         self.maxHP = int(250 * self.canvas.parent.upgradeList[1])
         self.HP = self.maxHP
         self.speed = 3

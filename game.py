@@ -26,7 +26,7 @@ class Game(Frame):
         self.upgradeFrame.grid(row=2, column=1)
 
         # show current money
-        self.money = Money(5000)
+        self.money = Money(50)
         self.moneyLabel = Label(self, text=self.money)
         self.moneyLabel.grid(row=2, column=2)
         self.after(1000, self.moneyPerSecond)  # money is added mps / s

@@ -40,6 +40,7 @@ class Map(Canvas):
 
     def nextStage(self):  # if stage cleared
         self.stage += 1
+        self.parent.money.set(50)
         if self.stage > len(self.roadInfo):  # stage clear
             if self.parent.difficulty.get()[:2] == "쉬움":  # add clear message at level button
                 self.parent.parent.LevelPage.easyButton.configure(text="쉬움\nclear")

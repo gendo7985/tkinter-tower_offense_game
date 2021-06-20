@@ -5,7 +5,7 @@ from .baseTower import baseTower
 class Tower3(baseTower):
     def __init__(self, parent, canvas, pos):
         self.parent = parent
-        self.damage = 10
+        self.damage = 20
         self.cooltime = 0.5
         self.range = 300
         self.maxHP = 1000

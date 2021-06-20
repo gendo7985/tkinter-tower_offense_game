@@ -32,7 +32,7 @@ class baseTower:
             self.canvas.towerList.remove(self.parent)
             self.respawning()  # ready for respawn
             self.kill = self.canvas.create_text(
-                self.x, self.y, text="$" + str(int(self.maxHP / self.const()))
+                self.x, self.y, text="$" + str(int(self.maxHP / self.const() * self.canvas.stage))
             )
             self.canvas.tag_bind(self.kill, "<Button-1>", self.mouseClick)  # kill permanently
 
@@ -91,7 +91,7 @@ class baseTower:
             self.canvas.delete(self.hpbarBackground)
 
     def mouseClick(self, e):
-        if self.canvas.parent.money.get() >= self.maxHP / self.const():
-            self.canvas.parent.money -= self.maxHP / self.const()
+        if self.canvas.parent.money.get() >= self.maxHP / self.const() * self.canvas.stage:
+            self.canvas.parent.money -= self.maxHP / self.const() * self.canvas.stage
             self.canvas.delete(self.kill)
             self.respawn = False
