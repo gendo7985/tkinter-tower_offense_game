@@ -26,19 +26,25 @@ class baseTower:
         moneyFactor = self.canvas.parent.upgradeList[3] + 1  # mps
         if self.HP <= damage:  # tower broken
             self.HP = 0
-            self.canvas.parent.money += self.maxHP * self.const() / 50 * moneyFactor
+            self.canvas.parent.money += (
+                self.maxHP * self.const() / 50 * moneyFactor / self.canvas.stage
+            )
             self.canvas.itemconfig(self.hpbar, fill="#333333")
             self.inBattle = False
             self.canvas.towerList.remove(self.parent)
             self.respawning()  # ready for respawn
             self.kill = self.canvas.create_text(
-                self.x, self.y, text="$" + str(int(self.maxHP / self.const() * self.canvas.stage))
+                self.x,
+                self.y,
+                text="$" + str(int(self.maxHP / self.const())),
             )
             self.canvas.tag_bind(self.kill, "<Button-1>", self.mouseClick)  # kill permanently
 
         else:  # tower alived
             self.HP -= damage
-            self.canvas.parent.money += damage * (self.const() - 1) / 5 * moneyFactor
+            self.canvas.parent.money += (
+                damage * (self.const() - 1) / 5 * moneyFactor / self.canvas.stage
+            )
             (x1, y1, x2, y2) = self.canvas.coords(self.hpbar)
             x2 = x1 + self.HP / self.maxHP * 28
             self.canvas.coords(self.hpbar, x1, y1, x2, y2)
@@ -91,7 +97,7 @@ class baseTower:
             self.canvas.delete(self.hpbarBackground)
 
     def mouseClick(self, e):
-        if self.canvas.parent.money.get() >= self.maxHP / self.const() * self.canvas.stage:
-            self.canvas.parent.money -= self.maxHP / self.const() * self.canvas.stage
+        if self.canvas.parent.money.get() >= self.maxHP / self.const():
+            self.canvas.parent.money -= self.maxHP / self.const()
             self.canvas.delete(self.kill)
             self.respawn = False

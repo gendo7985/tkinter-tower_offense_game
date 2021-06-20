@@ -5,10 +5,10 @@ from .baseTower import baseTower
 class Tower3(baseTower):
     def __init__(self, parent, canvas, pos):
         self.parent = parent
-        self.damage = 20
+        self.damage = 10 * canvas.stage
         self.cooltime = 0.5
         self.range = 300
-        self.maxHP = 1000
+        self.maxHP = 1000 * canvas.stage
         self.HP = self.maxHP
         baseTower.__init__(self, canvas, pos)
         self.image = PhotoImage(file="./src/tower3.png")
